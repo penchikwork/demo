@@ -112,13 +112,14 @@ h2 { font-size: 1.6rem; font-weight: 800; margin-bottom: 8px; }
   border-radius: 18px;
   border: 1px solid rgba(255, 255, 255, .08);
   border-top: 2px solid var(--accent);
-  background: var(--metal), linear-gradient(180deg, rgba(30, 32, 40, .88), rgba(20, 21, 27, .9));
+  /* полупрозрачная, чтобы сквозь неё мягко светили лампы сцены */
+  background: var(--metal), linear-gradient(180deg, rgba(30, 32, 40, .74), rgba(20, 21, 27, .8));
   box-shadow:
     0 -6px 24px -6px rgba(224, 164, 88, .55),
     inset 0 1px 0 rgba(255, 255, 255, .06),
     0 24px 60px -20px rgba(0, 0, 0, .7);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
 }
 /* заклёпки по углам — маленький «индустриальный» штрих */
 .hero__card::before,
@@ -480,6 +481,92 @@ h2 { font-size: 1.6rem; font-weight: 800; margin-bottom: 8px; }
 }
 .callbar__btn:active { transform: scale(.97); }
 
+/* ---------- Атмосфера мастерской ---------- */
+/* фон всей страницы: плавающие тёплые блики и медленно вращающиеся шестерни (только transform/opacity) */
+.bg-fx { position: fixed; inset: 0; z-index: -1; overflow: hidden; pointer-events: none; }
+.bg-fx__glow { position: absolute; width: 80vmax; height: 80vmax; border-radius: 50%; will-change: transform; }
+.bg-fx__glow--a {
+  left: -30vmax; top: -25vmax;
+  background: radial-gradient(closest-side, rgba(224, 164, 88, .13), transparent);
+  animation: drift-a 26s ease-in-out infinite alternate;
+}
+.bg-fx__glow--b {
+  right: -35vmax; bottom: -35vmax;
+  background: radial-gradient(closest-side, rgba(95, 120, 191, .1), transparent);
+  animation: drift-b 32s ease-in-out infinite alternate;
+}
+@keyframes drift-a { to { transform: translate(18vmax, 22vmax) scale(1.15); } }
+@keyframes drift-b { to { transform: translate(-16vmax, -20vmax) scale(.9); } }
+.gear { position: absolute; fill: none; stroke: rgba(224, 164, 88, .13); stroke-width: 1.4; will-change: transform; }
+.gear--a { width: 360px; right: -150px; top: 30vh; animation: spin 90s linear infinite; }
+.gear--b { width: 230px; left: -95px; bottom: 8vh; animation: spin 64s linear infinite reverse; }
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* сцена первого экрана: балка, лампы, машина на подъёмнике */
+.hero__scene { position: absolute; inset: 0; pointer-events: none; }
+.hero__scene svg { width: 100%; height: 100%; display: block; }
+/* телефон: ряд ламп над карточкой, их свет просвечивает сквозь неё */
+.hero__scene--d { display: none; }
+.hero__scene--m { bottom: auto; }
+.hero__scene--m svg { height: auto; }
+.hero { padding-top: 58px; }
+.hero > .wrap { position: relative; z-index: 1; }
+.scene__lines { fill: none; stroke: rgba(255, 255, 255, .13); stroke-width: 1.2; stroke-linecap: round; stroke-linejoin: round; }
+.lamp__shade { fill: #2a2c35; stroke: rgba(255, 255, 255, .22); stroke-width: 1; }
+.lamp__cone { fill: url(#cone); transform-box: fill-box; transform-origin: 50% 0; animation: lamp 7s ease-in-out infinite alternate; }
+.lamp__bulb { animation: bulb 7s ease-in-out infinite alternate; }
+.lamp--2 .lamp__cone, .lamp--2 .lamp__bulb { animation-delay: -2.3s; }
+.lamp--3 .lamp__cone, .lamp--3 .lamp__bulb { animation-delay: -4.6s; }
+@keyframes lamp { from { opacity: .55; transform: scaleX(.94); } to { opacity: 1; transform: scaleX(1.04); } }
+@keyframes bulb { from { opacity: .6; } to { opacity: 1; } }
+.scene__car .scene__lines { stroke: rgba(224, 164, 88, .34); stroke-width: 1.4; }
+.scene__headlight { fill: #ffe2b0; animation: headlight 4.5s ease-in-out infinite; }
+@keyframes headlight { 0%, 100% { opacity: .25; } 50% { opacity: .9; } }
+/* полоса света проходит по первому экрану */
+.hero::after {
+  content: "";
+  position: absolute;
+  inset: -10% -60%;
+  pointer-events: none;
+  background: linear-gradient(105deg, transparent 42%, rgba(255, 226, 176, .075) 50%, transparent 58%);
+  transform: translateX(-45%);
+  animation: sweep 11s ease-in-out infinite;
+}
+@keyframes sweep { 0%, 35% { transform: translateX(-45%); } 75%, 100% { transform: translateX(45%); } }
+
+/* ---------- Плавное появление блоков (включает скрипт; без него всё видно сразу) ---------- */
+.rv-on .rv > .wrap > *,
+.rv-on .rv .cards > li,
+.rv-on .rv .steps > li,
+.rv-on .rv .group,
+.rv-on .rv .faq,
+.rv-on .rv .gallery__item {
+  opacity: 0;
+  transform: translateY(22px);
+  transition: opacity .7s ease, transform .75s cubic-bezier(.2, .7, .3, 1);
+}
+.rv-on .rv.is-in > .wrap > *,
+.rv-on .rv.is-in .cards > li,
+.rv-on .rv.is-in .steps > li,
+.rv-on .rv.is-in .group,
+.rv-on .rv.is-in .faq,
+.rv-on .rv.is-in .gallery__item { opacity: 1; transform: none; }
+.rv-on .rv.is-in > .wrap > :nth-child(2) { transition-delay: .06s; }
+.rv-on .rv.is-in > .wrap > :nth-child(3) { transition-delay: .12s; }
+.rv-on .rv.is-in > .wrap > :nth-child(n+4) { transition-delay: .18s; }
+.rv-on .rv.is-in :is(.cards > li, .steps > li, .group, .faq, .gallery__item):nth-child(1) { transition-delay: .2s; }
+.rv-on .rv.is-in :is(.cards > li, .steps > li, .group, .faq, .gallery__item):nth-child(2) { transition-delay: .3s; }
+.rv-on .rv.is-in :is(.cards > li, .steps > li, .group, .faq, .gallery__item):nth-child(3) { transition-delay: .4s; }
+.rv-on .rv.is-in :is(.cards > li, .steps > li, .group, .faq, .gallery__item):nth-child(4) { transition-delay: .5s; }
+.rv-on .rv.is-in :is(.cards > li, .steps > li, .group, .faq, .gallery__item):nth-child(n+5) { transition-delay: .6s; }
+
+/* ---------- Фотогалерея (только фото с разрешением) ---------- */
+.gallery { display: flex; gap: 10px; overflow-x: auto; scroll-snap-type: x mandatory; padding-bottom: 6px; -webkit-overflow-scrolling: touch; }
+.gallery__item { position: relative; flex: 0 0 84%; margin: 0; aspect-ratio: 4 / 3; border-radius: var(--r); overflow: hidden; scroll-snap-align: start; border: 1px solid var(--glass-line); }
+.gallery__item img { width: 100%; height: 100%; object-fit: cover; animation: kenburns 18s ease-in-out infinite alternate; }
+.gallery__item figcaption { position: absolute; left: 0; right: 0; bottom: 0; padding: 18px 12px 8px; font-size: .7rem; color: #c3c6d0; background: linear-gradient(transparent, rgba(0, 0, 0, .7)); }
+@keyframes kenburns { from { transform: scale(1); } to { transform: scale(1.08) translate(-2%, -1%); } }
+
 /* нижняя панель на два действия: «Позвонить» + «Записаться» */
 .callbar--two { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
 .callbar--two .callbar__btn { width: 100%; max-width: none; margin: 0; font-size: .95rem; }
@@ -742,6 +829,12 @@ a:focus-visible, summary:focus-visible, button:focus-visible { outline: 2px soli
   html { scroll-behavior: auto; }
   *, *::before, *::after { transition: none !important; animation: none !important; }
   .cards li:hover { transform: none; }
+  .gallery__item img { animation: none !important; }
+}
+/* на узких экранах шестерни меньше, чтобы не спорили с контентом */
+@media (max-width: 759px) {
+  .gear--a { width: 260px; right: -130px; }
+  .gear--b { width: 170px; left: -80px; }
 }
 
 /* Узкие телефоны: цифры-бейджи компактнее */
@@ -755,7 +848,9 @@ a:focus-visible, summary:focus-visible, button:focus-visible { outline: 2px soli
 @media (min-width: 760px) {
   body { padding-bottom: 0; font-size: 16px; }
   .callbar { display: none; }
-  .hero { padding-block: 56px 56px; }
+  .hero { padding-block: 64px 56px; }
+  .hero__scene--d { display: block; }
+  .hero__scene--m { display: none; }
   .hero__card { padding: 40px 36px 32px; border-radius: 22px; }
   .hero__title { font-size: 4rem; }
   .hero__lead { font-size: 1.1rem; }
