@@ -36,7 +36,7 @@
         <svg aria-hidden="true" viewBox="0 0 24 24" width="18" height="18"><path fill="currentColor" d="M6.6 10.8a15.1 15.1 0 0 0 6.6 6.6l2.2-2.2a1 1 0 0 1 1-.25 11.4 11.4 0 0 0 3.6.57 1 1 0 0 1 1 1V20a1 1 0 0 1-1 1A17 17 0 0 1 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1c0 1.25.2 2.45.57 3.57a1 1 0 0 1-.25 1z"/></svg>
         +7 919 334-82-62
       </a>
-      <a class="btn btn--ghost" href="#contacts">Адрес</a>
+      <a class="btn btn--book" href="#booking"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="5" width="17" height="15" rx="2.5"/><path d="M3.5 10h17M8 3v4M16 3v4"/></svg> Записаться онлайн</a>
     </div>
       <ul class="facts" style="--n:2">
         <li><span class="fact__icon" aria-hidden="true"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="m12 3.5 2.6 5.3 5.9.9-4.3 4.1 1 5.8L12 16.9l-5.2 2.7 1-5.8-4.3-4.1 5.9-.9z"/></svg></span><b>4,8</b><span class="fact__label">рейтинг в 2ГИС,<br>84 оценки</span></li>
@@ -47,7 +47,54 @@
 </header>
 
 <main>
+  <section class="section section--booking" id="booking">
+    <div class="wrap">
+      <div class="booking">
+        <p class="eyebrow">Онлайн-запись</p>
+        <h2>Запись на сервис</h2>
+        <p class="muted">Заполните четыре поля — соберём заявку, останется отправить её в сервис в мессенджер или по телефону.</p>
+        <form class="bform" id="bform" action="#booking" novalidate>
+          <label class="field"><span class="field__label">Марка и модель авто</span>
+            <input class="field__input" name="car" maxlength="60" autocomplete="off" placeholder="Например, Kia Rio 2017" required></label>
+          <label class="field"><span class="field__label">Телефон</span>
+            <input class="field__input" name="phone" type="tel" inputmode="tel" autocomplete="tel" maxlength="20" placeholder="+7 900 000-00-00" required></label>
+          <label class="field"><span class="field__label">Услуга</span>
+            <select class="field__input" name="service" required>
+              <option value="" disabled selected>Выберите услугу</option>
+              <option>Замена масла</option>
+              <option>Диагностика</option>
+              <option>Ходовая часть</option>
+              <option>Ремонт двигателя</option>
+              <option>Шиномонтаж</option>
+              <option>Другое</option>
+            </select></label>
+          <fieldset class="field field--chips"><legend class="field__label">Когда удобно</legend>
+            <div class="chips">
+              <label class="chip"><input type="radio" name="time" value="Сегодня" checked><span>Сегодня</span></label>
+              <label class="chip"><input type="radio" name="time" value="Завтра"><span>Завтра</span></label>
+              <label class="chip"><input type="radio" name="time" value="Уточнить"><span>Уточнить</span></label>
+            </div>
+          </fieldset>
+          <p class="bform__err" id="bform-err" role="alert" hidden></p>
+          <button class="btn btn--call btn--wide bform__submit" type="submit"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="5" width="17" height="15" rx="2.5"/><path d="M3.5 10h17M8 3v4M16 3v4"/></svg> Записаться</button>
+          <p class="bform__hint">Сайт ничего не сохраняет: заявку отправляете вы сами — в мессенджер сервиса или по телефону.</p>
+        </form>
+      </div>
+    </div>
+  </section>
 
+  <section class="section" id="steps">
+    <div class="wrap">
+      <p class="eyebrow">Порядок</p>
+      <h2>Как проходит визит</h2>
+      <ol class="steps">
+        <li class="step"><span class="step__num">1</span><b>Заявка или звонок</b><span>Оставьте заявку выше или позвоните: +7 919 334-82-62.</span></li>
+        <li class="step"><span class="step__num">2</span><b>Осмотр и диагностика</b><span>Мастер смотрит машину и говорит, какие работы нужны.</span></li>
+        <li class="step"><span class="step__num">3</span><b>Согласование цены</b><span>Стоимость и сроки уточните у мастера до того, как машину возьмут в работу.</span></li>
+        <li class="step"><span class="step__num">4</span><b>Ремонт и выдача</b><span>Забираете машину. Гарантию и документы на работы уточняйте при сдаче.</span></li>
+      </ol>
+    </div>
+  </section>
   <section class="section" id="reviews">
     <div class="wrap">
       <p class="eyebrow">Отзывы</p>
@@ -64,6 +111,24 @@
         <li><b>Свои люди</b><span>Многие ездят сюда годами, в том числе с коммерческим транспортом, отмечают гарантию и документы.</span></li>
         <li><b>Условия</b><span>Упоминают чистоту и удобную комнату ожидания.</span></li>
       </ul>
+    </div>
+  </section>
+  <section class="section" id="faq">
+    <div class="wrap">
+      <p class="eyebrow">Вопросы</p>
+      <h2>Частые вопросы</h2>
+      <details class="faq">
+        <summary>Изменится ли цена в процессе ремонта?</summary>
+        <p>Цен в карточке 2ГИС нет, поэтому стоимость уточняйте по телефону до начала работ.</p>
+      </details>
+      <details class="faq">
+        <summary>Как быстро можно записаться?</summary>
+        <p>В 2ГИС указано, что сервис работает по предварительной записи: Пн–Пт 09:00–18:00, перерыв 12:30–13:30.</p>
+      </details>
+      <details class="faq">
+        <summary>Какие способы оплаты доступны?</summary>
+        <p>Карта, наличные, через банк, перевод с карты, QR-код, оплата частями. Так указано в карточке 2ГИС.</p>
+      </details>
     </div>
   </section>
   <section class="section" id="contacts">
@@ -90,11 +155,26 @@
   </div>
 </footer>
 
-<div class="callbar">
+<div class="callbar callbar--two">
   <a class="callbar__btn" href="tel:+79193348262">
     <svg aria-hidden="true" viewBox="0 0 24 24" width="18" height="18"><path fill="currentColor" d="M6.6 10.8a15.1 15.1 0 0 0 6.6 6.6l2.2-2.2a1 1 0 0 1 1-.25 11.4 11.4 0 0 0 3.6.57 1 1 0 0 1 1 1V20a1 1 0 0 1-1 1A17 17 0 0 1 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1c0 1.25.2 2.45.57 3.57a1 1 0 0 1-.25 1z"/></svg>
-    Позвонить в автосервис
+    Позвонить
   </a>
+  <a class="callbar__btn callbar__btn--book" href="#booking"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="5" width="17" height="15" rx="2.5"/><path d="M3.5 10h17M8 3v4M16 3v4"/></svg> Записаться</a>
+</div>
+<div class="modal" id="bmodal" hidden>
+  <div class="modal__card" role="dialog" aria-modal="true" aria-labelledby="bmodal-title">
+    <button class="modal__x" type="button" data-close aria-label="Закрыть">×</button>
+    <div class="modal__icon" aria-hidden="true"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12.5 4.5 4.5L19 7.5"/></svg></div>
+    <h3 class="modal__title" id="bmodal-title">Заявка готова</h3>
+    <p class="modal__lead">Это демо-сайт, сам он заявки не отправляет. Позвоните в сервис и продиктуйте заявку или скопируйте текст.</p>
+    <pre class="modal__text" id="bmodal-text"></pre>
+    <div class="modal__actions">
+      <a class="btn btn--call" href="tel:+79193348262"><svg aria-hidden="true" viewBox="0 0 24 24" width="18" height="18"><path fill="currentColor" d="M6.6 10.8a15.1 15.1 0 0 0 6.6 6.6l2.2-2.2a1 1 0 0 1 1-.25 11.4 11.4 0 0 0 3.6.57 1 1 0 0 1 1 1V20a1 1 0 0 1-1 1A17 17 0 0 1 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1c0 1.25.2 2.45.57 3.57a1 1 0 0 1-.25 1z"/></svg> Позвонить</a>
+      <button class="btn btn--ghost" type="button" id="bm-copy">Скопировать текст</button>
+    </div>
+    <p class="modal__copied" id="bm-copied" hidden>Текст скопирован</p>
+  </div>
 </div>
 <script>
 /* Статус «открыто/закрыто» по челябинскому времени. Без скрипта остаётся текст из карточки. */
@@ -121,6 +201,46 @@
     el.classList.add(open ? 'is-open' : 'is-closed');
     el.querySelector('.status__text').textContent = text;
   } catch (e) {}
+})();
+</script>
+<script>
+/* Онлайн-запись: проверка полей, сборка текста заявки, окно с отправкой в мессенджер или звонком */
+(function () {
+  var form = document.getElementById('bform'), modal = document.getElementById('bmodal');
+  if (!form || !modal) return;
+  var err = document.getElementById('bform-err'), out = document.getElementById('bmodal-text');
+  var wa = document.getElementById('bm-wa'), tg = document.getElementById('bm-tg');
+  var copyBtn = document.getElementById('bm-copy'), copied = document.getElementById('bm-copied');
+  var lastFocus = null, text = '';
+  function fail(msg, el) { err.textContent = msg; err.hidden = false; el.classList.add('is-bad'); el.focus(); }
+  function copy() {
+    copied.hidden = true;
+    var done = function () { copied.hidden = false; };
+    if (navigator.clipboard && navigator.clipboard.writeText) { navigator.clipboard.writeText(text).then(done, function () {}); return; }
+    try { var r = document.createRange(); r.selectNodeContents(out); var s = getSelection(); s.removeAllRanges(); s.addRange(r); if (document.execCommand('copy')) done(); } catch (e) {}
+  }
+  function close() { modal.hidden = true; document.documentElement.classList.remove('has-modal'); if (lastFocus) lastFocus.focus(); }
+  form.addEventListener('input', function (e) { e.target.classList.remove('is-bad'); err.hidden = true; });
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    var f = form.elements, car = f.car.value.trim(), phone = f.phone.value.trim(), service = f.service.value;
+    var time = (form.querySelector('input[name=time]:checked') || {}).value || 'Уточнить';
+    if (car.length < 2) return fail('Укажите марку и модель машины', f.car);
+    if (phone.replace(/\D/g, '').length < 10) return fail('Проверьте номер телефона: нужно не меньше 10 цифр', f.phone);
+    if (!service) return fail('Выберите услугу', f.service);
+    text = 'Здравствуйте! Хочу записаться.\nАвто: ' + car + '\nУслуга: ' + service + '\nКогда: ' + time + '\nМой телефон: ' + phone;
+    out.textContent = text;
+    if (wa) wa.href = wa.href.split('?')[0] + '?text=' + encodeURIComponent(text);
+    copied.hidden = true;
+    lastFocus = document.activeElement;
+    modal.hidden = false;
+    document.documentElement.classList.add('has-modal');
+    modal.querySelector('[data-close]').focus();
+  });
+  if (tg) tg.addEventListener('click', copy);
+  copyBtn.addEventListener('click', copy);
+  modal.addEventListener('click', function (e) { if (e.target === modal || e.target.hasAttribute('data-close')) close(); });
+  document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && !modal.hidden) close(); });
 })();
 </script>
 </body>
